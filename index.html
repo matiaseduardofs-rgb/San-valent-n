@@ -34,11 +34,12 @@
       border: none;
       border-radius: 30px;
       cursor: pointer;
+      position: relative;
     }
     .yes { background-color: #e63946; color: white; }
-    .no  { background-color: #ccc; color: #333; transition: all 0.2s ease; }
+    .no  { background-color: #ccc; color: #333; }
 
-    /* Corazones */
+    /* Corazones cayendo */
     .heart {
       position: fixed;
       top: -10px;
@@ -70,22 +71,31 @@
   </div>
 
   <script>
-    const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
 
-    /* Botón NO escapa */
-    function moveButton() {
-      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-      noBtn.style.position = "absolute";
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    }
+    /* Botón NO huye del mouse pero no sale de la pantalla */
+    document.addEventListener("mousemove", (e) => {
+      const rect = noBtn.getBoundingClientRect();
+      const distance = Math.hypot(
+        e.clientX - (rect.left + rect.width / 2),
+        e.clientY - (rect.top + rect.height / 2)
+      );
 
-    noBtn.addEventListener("mouseover", moveButton);
-    noBtn.addEventListener("click", moveButton);
+      if (distance < 100) {
+        const maxX = window.innerWidth - rect.width;
+        const maxY = window.innerHeight - rect.height;
 
-    /* Lluvia de corazones */
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.position = "fixed";
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+      }
+    });
+
+    /* Lluvia constante de corazones */
     function startHeartRain() {
       setInterval(() => {
         const heart = document.createElement("div");
@@ -108,9 +118,9 @@
           <h1>La veo el sábado 🥰</h1>
           <p>Te adoro ❤️</p>
           <img 
-            src="https://media.giphy.com/media/3o6ZsX2K3KJZ1Kz9vy/giphy.gif" 
-            alt="Caballo romántico"
-            style="width:300px; border-radius:20px; margin-top:20px;"
+            src="https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif"
+            alt="Caballo feliz"
+            style="width:280px; border-radius:20px; margin-top:20px;"
           >
           <p>Cabalgando juntos hacia el amor ✨🐎</p>
         </div>
@@ -120,4 +130,3 @@
 
 </body>
 </html>
-
