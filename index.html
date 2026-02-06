@@ -13,6 +13,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      overflow: hidden; /* IMPORTANTE para que el botón no genere scroll */
     }
     .card {
       background: white;
@@ -20,6 +21,7 @@
       border-radius: 20px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
       max-width: 400px;
+      position: relative;
     }
     h1 {
       color: #e63946;
@@ -43,37 +45,37 @@
     .no {
       background-color: #ccc;
       color: #333;
+      transition: all 0.2s ease; /* movimiento suave */
     }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <h1>💖 Hola, mi amor 💖</h1>
+    <h1>💖 Hola, mi estimada 💖</h1>
     <p>
-      Desde que estás en mi vida, todo es más bonito.<br>
-      Así que hoy quiero preguntarte algo muy especial…
+      Cada día siento que la quiero más.<br>
+      Así que hoy quiero preguntarle algo
     </p>
     <h2>¿Quieres ser mi San Valentín? 💌</h2>
 
     <button class="yes" onclick="sayYes()">Sí 💕</button>
-    <button class="no" onclick="sayNo()">No 🙈</button>
+    <button class="no" id="noBtn" onmouseover="moveButton()">No 🙈</button>
   </div>
 
   <script>
     function sayYes() {
       document.body.innerHTML = `
         <div style="text-align:center; color:white;">
-          <h1>🥰 ¡Sabía que dirías que sí! 🥰</h1>
-          <p>Eres lo mejor que me ha pasado ❤️</p>
+          <h1>La veo el sábado 🥰</h1>
+          <p>Te adoro ❤️</p>
         </div>
       `;
     }
 
     function sayNo() {
-      alert("Opción inválida 😌💘");
+      alert("¿Está segura? 🥺💘");
     }
-  </script>
 
-</body>
-</html>
+    function m
+
