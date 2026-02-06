@@ -33,19 +33,33 @@ button{
   border:none;
   border-radius:30px;
   cursor:pointer;
+  transition: transform 0.2s ease;
 }
 
-.yes{background:#e63946;color:white;}
-.no{background:#ccc;}
+.yes{
+  background:#e63946;
+  color:white;
+}
 
+.no{
+  background:#ccc;
+  color:#333;
+}
+
+/* corazones */
 .heart{
   position:fixed;
   top:-10px;
   font-size:20px;
   animation:fall linear forwards;
+  pointer-events:none;
 }
+
 @keyframes fall{
-  to{transform:translateY(110vh);opacity:0;}
+  to{
+    transform:translateY(110vh);
+    opacity:0;
+  }
 }
 </style>
 </head>
@@ -54,33 +68,61 @@ button{
 
 <div class="card" id="card">
   <h1>💖 Hola, mi estimada 💖</h1>
-  <p>Cada día siento que la quiero más, asi que le quiero preguntar.</p>
-  <h2>¿Quieres ser mi San Valentín? 💌</h2>
+  <p>Cada día siento que la quiero más, asi que quiero preguntarle</p>
+  <h2>¿Quiere ser mi San Valentín? 💌</h2>
 
-  <button class="yes" onclick="sayYes()">Sí 💕</button>
-  <button class="no" id="noBtn" onmouseover="moveNo()">No D:</button>
+  <button class="yes" id="yesBtn" onclick="sayYes()">Sí 💕</button>
+  <button class="no"  id="noBtn"  onmouseover="moveNo()">No D:</button>
 </div>
 
 <script>
+/* textos del NO */
+const noTexts = [
+  "No D:",
+  "¿Estás segura?",
+  "Piénsalo mejor",
+  "Yo sé que si quieres",
+  "Lo veo en tus ojos wapa"
+];
+let noIndex = 0;
+
+/* tamaño del SÍ */
+let yesScale = 1;
+
+function moveNo(){
+  const noBtn  = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+
+  /* cambiar texto en bucle */
+  noIndex = (noIndex + 1) % noTexts.length;
+  noBtn.innerText = noTexts[noIndex];
+
+  /* mover botón NO */
+  const maxX = window.innerWidth  - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  noBtn.style.position = "fixed";
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top  = Math.random() * maxY + "px";
+
+  /* hacer crecer el botón SÍ */
+  yesScale += 0.1;
+  yesBtn.style.transform = `scale(${yesScale})`;
+}
+
+/* acción al decir SÍ */
 function sayYes(){
   startHearts();
   document.getElementById("card").innerHTML = `
     <h1>La veo el sábado 🥰</h1>
     <p>Te adoro ❤️</p>
-    <img src="caballo.gif" style="width:280px; border-radius:20px; margin-top:20px;">
+    <img src="caballo.gif"
+         style="width:280px;border-radius:20px;margin-top:20px;">
     <p>🐎 Quizás y llego a caballo wapa 🐎</p>
   `;
 }
 
-function moveNo(){
-  const btn = document.getElementById("noBtn");
-  const maxX = window.innerWidth - btn.offsetWidth;
-  const maxY = window.innerHeight - btn.offsetHeight;
-  btn.style.position="fixed";
-  btn.style.left = Math.random()*maxX+"px";
-  btn.style.top  = Math.random()*maxY+"px";
-}
-
+/* lluvia de corazones */
 function startHearts(){
   setInterval(()=>{
     const h=document.createElement("div");
@@ -96,6 +138,8 @@ function startHearts(){
 
 </body>
 </html>
+
+
 
 
 
