@@ -34,7 +34,6 @@
       border: none;
       border-radius: 30px;
       cursor: pointer;
-      position: relative;
     }
     .yes { background-color: #e63946; color: white; }
     .no  { background-color: #ccc; color: #333; }
@@ -47,7 +46,6 @@
       animation: fall linear forwards;
       pointer-events: none;
     }
-
     @keyframes fall {
       to {
         transform: translateY(110vh);
@@ -58,7 +56,7 @@
 </head>
 <body>
 
-  <div class="card" id="card">
+  <div class="card">
     <h1>💖 Hola, mi estimada 💖</h1>
     <p>
       Cada día siento que la quiero más.<br>
@@ -71,62 +69,8 @@
   </div>
 
   <script>
-    const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
 
-    /* Botón NO huye del mouse pero no sale de la pantalla */
-    document.addEventListener("mousemove", (e) => {
-      const rect = noBtn.getBoundingClientRect();
-      const distance = Math.hypot(
-        e.clientX - (rect.left + rect.width / 2),
-        e.clientY - (rect.top + rect.height / 2)
-      );
-
-      if (distance < 100) {
-        const maxX = window.innerWidth - rect.width;
-        const maxY = window.innerHeight - rect.height;
-
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
-
-        noBtn.style.position = "fixed";
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
-      }
-    });
-
-    /* Lluvia constante de corazones */
-    function startHeartRain() {
-      setInterval(() => {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (2 + Math.random() * 3) + "s";
-        document.body.appendChild(heart);
-
-        setTimeout(() => heart.remove(), 5000);
-      }, 300);
-    }
-
-    /* Al aceptar */
-    yesBtn.addEventListener("click", () => {
-      startHeartRain();
-
-      document.body.innerHTML = `
-        <div style="text-align:center; color:white;">
-          <h1>La veo el sábado 🥰</h1>
-          <p>Te adoro ❤️</p>
-          <img 
-            src="https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif"
-            alt="Caballo feliz"
-            style="width:280px; border-radius:20px; margin-top:20px;"
-          >
-          <p>Cabalgando juntos hacia el amor ✨🐎</p>
-        </div>
-      `;
-    });
-  </script>
-
-</body>
-</html>
+    /* El botón NO huye cuando te acercas, pero nunca sale de pantalla */
+    document.addEventListener("mousemove", (e) =>
